@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Delight Cafe</title>
+
+    <!-- jQuery Mobile CSS CDN -->
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+
+    <!-- jQuery & jQuery Mobile JS CDN -->
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+    <style>
+        /* Center main hero image */
+        .product-img {
+            width: 50%;
+            border-radius: 10px;
+            display: block;
+            margin: 10px auto;
+        }
+
+        /* 2-column card grid */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        /* Card styling */
+        .card {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 10px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            background-color: #fff;
+            text-align: center;
+        }
+
+        .card img {
+            width: 100%;
+            border-radius: 10px;
+            height: 160px;
+            object-fit: cover;
+        }
+
+        .card h3 {
+            margin-top: 10px;
+            font-size: 18px;
+            color: #b33;
+        }
+
+        .card p {
+            font-size: 14px;
+            color: #333;
+        }
+
+        .card .price {
+            font-weight: bold;
+            color: #008000;
+            font-size: 16px;
+            margin: 8px 0;
+        }
+
+        .qty-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            margin: 10px 0;
+        }
+
+        .qty-btn {
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-weight: bold;
+            border-radius: 4px;
+        }
+
+        .qty-input {
+            width: 40px;
+            text-align: center;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 4px;
+        }
+
+        .card:hover {
+            transform: scale(1.03);
+        }
+
+        .footer-text {
+            text-align: center;
+            font-size: 14px;
+            color: #fff;
+        }
+
+        .contact-container {
+            padding: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- HOME PAGE -->
+<div data-role="page" id="home">
+
+    <div data-role="header" data-theme="b">
+        <h1>Delight Cafe</h1>
+    </div>
+
+    <!-- NAVBAR -->
+    <div data-role="navbar">
+        <ul>
+            <li><a href="#home" class="ui-btn-active">Home</a></li>
+            <li><a href="#products">Products</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </div>
+
+    <div data-role="content">
+
+        <h2>Welcome to Delight Cafe</h2>
+
+        <p>
+            Delight Cafe offers delicious food, tasty desserts
+            and refreshing drinks.
+        </p>
+
+        <h3>Our Specialties</h3>
+
+        <!-- Responsive Card Grid -->
+        <div class="card-grid">
+
+            <div class="card">
+                <img src="img/Korean Fried Chicken.jpeg" alt="Korean Fried Chicken">
+                <h3>Korean Fried Chicken</h3>
+                <p>Crispy fried chicken coated with delicious Korean-style sauce.</p>
+                <div class="price">RM 18.00</div>
+                <div class="qty-container">
+                    <button type="button" class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                    <input type="text" class="qty-input" value="1" readonly>
+                    <button type="button" class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                </div>
+                <button data-theme="b" data-mini="true" onclick="addToCart('Korean Fried Chicken', 18.00, this)">Add to Cart</button>
+            </div>
+
+            <div class="card">
+                <img src="img/Crispy Chicken Burger.jpeg" alt="Crispy Chicken Burger">
+                <h3>Crispy Chicken Burger</h3>
+                <p>Crispy chicken served in a soft bun with fresh vegetables and special sauce.</p>
+                <div class="price">RM 15.00</div>
+                <div class="qty-container">
+                    <button type="button" class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                    <input type="text" class="qty-input" value="1" readonly>
+                    <button type="button" class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                </div>
+                <button data-theme="b" data-mini="true" onclick="addToCart('Crispy Chicken Burger', 15.00, this)">Add to Cart</button>
+            </div>
+
+            <div class="card">
+                <img src="img/brownies.jpeg" alt="Brownies">
+                <h3>Chocolate Brownie</h3>
+                <p>Rich and fudgy chocolate brownie with a delicious soft texture.</p>
+                <div class="price">RM 9.00</div>
+                <div class="qty-container">
+                    <button type="button" class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                    <input type="text" class="qty-input" value="1" readonly>
+                    <button type="button" class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                </div>
+                <button data-theme="b" data-mini="true" onclick="addToCart('Chocolate Brownie', 9.00, this)">Add to Cart</button>
+            </div>
+
+            <div class="card">
+                <img src="img/Caramel Cheesecake.jpeg" alt="Caramel Cheesecake">
+                <h3>Caramel Cheesecake</h3>
+                <p>Creamy cheesecake topped with smooth and sweet caramel sauce.</p>
+                <div class="price">RM 12.00</div>
+                <div class="qty-container">
+                    <button type="button" class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                    <input type="text" class="qty-input" value="1" readonly>
+                    <button type="button" class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                </div>
+                <button data-theme="b" data-mini="true" onclick="addToCart('Caramel Cheesecake', 12.00, this)">Add to Cart</button>
+            </div>
+
+            <div class="card">
+                <img src="img/Iced Coffee With Ice Cream.jpeg" alt="Iced Coffee with Ice Cream">
+                <h3>Iced Coffee With Ice Cream</h3>
+                <p>Refreshing summer beverage combining strong coffee with creamy ice cream.</p>
+                <div class="price">RM 10.00</div>
+                <div class="qty-container">
+                    <button type="button" class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                    <input type="text" class="qty-input" value="1" readonly>
+                    <button type="button" class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                </div>
+                <button data-theme="b" data-mini="true" onclick="addToCart('Iced Coffee With Ice Cream', 10.00, this)">Add to Cart</button>
+            </div>
+
+            <div class="card">
+                <img src="img/Passion fruit juice.jpeg" alt="Passion Fruit Juice">
+                <h3>Passion Fruit Juice</h3>
+                <p>Tropical beverage known for its sweet-tart flavor and vibrant profile.</p>
+                <div class="price">RM 8.00</div>
+                <div class="qty-container">
+                    <button type="button" class="qty-btn" onclick="changeQty(this, -1)">-</button>
+                    <input type="text" class="qty-input" value="1" readonly>
+                    <button type="button" class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                </div>
+                <button data-theme="b" data-mini="true" onclick="addToCart('Passion Fruit Juice', 8.00, this)">Add to Cart</button>
+            </div>
+
+        </div>
+    </div>
+
+    <div data-role="footer"
+         data-theme="b"
+         data-position="fixed">
+
+        <h4 class="footer-text">
+            ©️ 2026 Delight Cafe
+        </h4>
+
+    </div>
+</div>
+
+
+<!-- PRODUCTS PAGE -->
+<div data-role="page" id="products">
+
+    <div data-role="header" data-theme="b">
+
+        <a href="#home"
+           data-icon="home"
+           data-iconpos="notext">
+        </a>
+
+        <h1>Our Menu</h1>
+
+    </div>
+
+    <!-- NAVBAR -->
+    <div data-role="navbar">
+
+        <ul>
+            <li><a href="#home">Home</a></li>
+
+            <li>
+                <a href="#products"
+                   class="ui-btn-active">
+                   Products
+                </a>
+            </li>
+
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+
+    </div>
+
+    <div data-role="content">
+
+        <ul data-role="listview"
+            data-inset="true">
+
+            <li>
+                <img src="img/Korean Fried Chicken.jpeg" alt="Korean Fried Chicken">
+                <h2>Korean Fried Chicken - RM 18.00</h2>
+                <p>Crispy fried chicken coated with delicious Korean-style sauce.</p>
+            </li>
+
+            <li>
+                <img src="img/Crispy Chicken Burger.jpeg" alt="Crispy Chicken Burger">
+                <h2>Crispy Chicken Burger - RM 15.00</h2>
+                <p>Crispy chicken served in a soft bun with fresh vegetables and special sauce.</p>
+            </li>
+
+            <li>
+                <img src="img/brownies.jpeg" alt="Chocolate Brownie">
+                <h2>Chocolate Brownie - RM 9.00</h2>
+                <p>Rich and fudgy chocolate brownie with a delicious soft texture.</p>
+            </li>
+
+            <li>
+                <img src="img/Caramel Cheesecake.jpeg" alt="Caramel Cheesecake">
+                <h2>Caramel Cheesecake - RM 12.00</h2>
+                <p>Creamy cheesecake topped with smooth and sweet caramel sauce.</p>
+            </li>
+
+            <li>
+                <img src="img/Iced Coffee With Ice Cream.jpeg" alt="Iced Coffee with Ice Cream">
+                <h2>Iced Coffee With Ice Cream - RM 10.00</h2>
+                <p>Refreshing summer beverage combining strong coffee with creamy ice cream.</p>
+            </li>
+
+            <li>
+                <img src="img/Passion fruit juice.jpeg" alt="Passion Fruit Juice">
+                <h2>Passion Fruit Juice - RM 8.00</h2>
+                <p>Tropical beverage known for its sweet-tart flavor and vibrant profile.</p>
+            </li>
+
+        </ul>
+
+    </div>
+
+    <div data-role="footer"
+         data-theme="b"
+         data-position="fixed">
+
+        <h4 class="footer-text">
+            ©️ 2026 Delight Cafe
+        </h4>
+
+    </div>
+</div>
+
+
+<!-- CONTACT PAGE -->
+<div data-role="page" id="contact">
+
+    <div data-role="header" data-theme="b">
+
+        <a href="#home"
+           data-icon="home"
+           data-iconpos="notext">
+        </a>
+
+        <h1>Get in Touch</h1>
+
+    </div>
+
+    <!-- NAVBAR -->
+    <div data-role="navbar">
+
+        <ul>
+            <li><a href="#home">Home</a></li>
+
+            <li><a href="#products">Products</a></li>
+
+            <li>
+                <a href="#contact"
+                   class="ui-btn-active">
+                   Contact
+                </a>
+            </li>
+        </ul>
+
+    </div>
+
+    <!-- CONTACT FORM -->
+    <div class="contact-container">
+
+        <form id="contactForm">
+
+            <h2>Send Us a Feedback or Inquiry</h2>
+
+            <label for="name">
+                Your Name:
+            </label>
+
+            <input type="text"
+                   id="name"
+                   name="name"
+                   placeholder=""
+                   required>
+
+            <br>
+
+            <label for="email">
+                Email Address:
+            </label>
+
+            <input type="email"
+                   id="email"
+                   name="email"
+                   placeholder=""
+                   required>
+
+            <br>
+
+            <label for="phone">
+                Mobile Number:
+            </label>
+
+            <input type="tel"
+                   id="phone"
+                   name="phone"
+                   placeholder="">
+
+            <br>
+
+            <label for="subject">
+                Inquiry Topic:
+            </label>
+
+            <input type="text"
+                   id="subject"
+                   name="subject"
+                   placeholder="">
+
+            <br>
+
+            <label for="message">
+                Your Comments / Message:
+            </label>
+
+            <textarea id="message"
+                      name="message"
+                      rows="5"
+                      cols="40"
+                      placeholder=""
+                      required>
+            </textarea>
+
+            <br>
+
+            <button type="submit"
+                    data-theme="b">
+                Submit Inquiry
+            </button>
+
+            <button type="reset">
+                Reset Form
+            </button>
+
+        </form>
+
+    </div>
+
+    <!-- CONTACT INFORMATION -->
+    <div data-role="content">
+
+        <h3>Visit Delight Cafe</h3>
+
+        <p>
+            <strong>Customer Support Email:</strong>
+            support@delightcafe.my
+        </p>
+
+        <p>
+            <strong>Hotline Line:</strong>
+            +60 82-555888
+        </p>
+
+        <p>
+            <strong>Main Branch Location:</strong>
+            Jalan Song, 93350 Kuching, Sarawak, Malaysia
+        </p>
+
+    </div>
+
+    <div data-role="footer"
+         data-theme="b"
+         data-position="fixed">
+
+        <h4 class="footer-text">
+            ©️ 2026 Delight Cafe
+        </h4>
+
+    </div>
+
+</div>
+
+
+<!-- SCRIPTS -->
+<script>
+    // Function to handle quantity increment and decrement (- and + buttons)
+    function changeQty(button, delta) {
+        var container = button.parentElement;
+        var input = container.querySelector('.qty-input');
+        var currentVal = parseInt(input.value);
+        var newVal = currentVal + delta;
+        if (newVal >= 1) {
+            input.value = newVal;
+        }
+    }
+
+    // Function to simulate adding items to the cart
+    function addToCart(itemName, itemPrice, button) {
+        var container = button.parentElement;
+        var qty = container.querySelector('.qty-input').value;
+        alert(qty + " x " + itemName + " successfully added to your cart! Total: RM " + (itemPrice * qty).toFixed(2));
+    }
+
+    // Contact Form submission script
+    document.getElementById("contactForm").addEventListener("submit", function(e) {
+        e.preventDefault();
+        alert("Thank you! Your message has been sent successfully.");
+        this.reset();
+    });
+</script>
+
+</body>
+</html>
